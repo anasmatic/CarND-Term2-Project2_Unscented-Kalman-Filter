@@ -74,6 +74,12 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-
+*.vcxproj
+*.filters
+*.sln
+*.sh
 # Windows shortcuts
 *.lnk
+
+\.vs
+\build
