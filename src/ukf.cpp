@@ -180,7 +180,7 @@ void UKF::Prediction(double delta_t) {
 		Xsig_aug.col(i) = x_aug + A_lambda_aug.col(i - 1);
 		Xsig_aug.col(i + n_aug_) = x_aug - A_lambda_aug.col(i - 1);
 	}
-	//cout << "Xsig_aug" << endl << Xsig_aug << endl;
+	cout << "Xsig_aug" << endl << Xsig_aug << endl;
 	//th9is part from assignment answer becuase they handle zero division better than me 
   //Sigma Point Prediction---------------------------
   //create matrix with predicted sigma points as columns
@@ -222,7 +222,7 @@ void UKF::Prediction(double delta_t) {
 		Xsig_pred_(3, i) = yaw_p;
 		Xsig_pred_(4, i) = yawd_p;
 	}
-	//cout << "Xsig_pred" << endl << Xsig_pred_ << endl; return;
+	cout << "Xsig_pred" << endl << Xsig_pred_ << endl;
 	//Predicted Mean and Covariance---------------------------------------
 	//predict state mean
 	//x_.fill(0);
