@@ -1,0 +1,47 @@
+build cmds
+1: cmake .. -G "Unix Makefiles" && make
+2: ./UnscentedKF
+
+
+
+20171020
+code flow is fine
+bad rmse, a nose & yawd noises = 30
+
+try noise a = 0 , result bad as fuck
+try noise a = 15 , result getting better
+try noise a = 7 , result getting better than 15{.08,.10,.56,.64}
+try noise a = 15+7 , result worst than 7 {.09,.11,.79,.89}
+try noise a = 3 , result even better {.0785,.0957,.5046,.5506}
+try noise a = 1.5 , result slightly better {.0693,.0935,.4899,.5083}
+try noise a = .75 , result slightly better 
+I'll stop here and tune yawd because I left it @ 30
+try yawd = .75 , result slightly better {.0628,.0841,.3269,.2267}
+try yawd = 7 , result worst than before {.0636,.0889,.3902,.3456}
+try yawd = .05 , result now are confusing {.02117,.1949,.5731,.4859}
+
+a=.75 , ywd=1.5
+NIS_laser : _5p9:0.0240481, _p103:0.0440882
+NIS_rader : _7p8:0.012024, _p352:0.156313
+
+a=.75 , ywd=.75
+NIS_laser : _5p9:0.0240481, _p103:0.0480962
+NIS_rader : _7p8:0.012024, _p352:0.144289
+
+I'll submit with a=.75 , ywd=1.5
+db1 : {.0629,.0841,.3269,.2267}
+db2 : {.0634,.0605,.2229,.1917}
+
+20171021
+
+good rmse 
+on data1 =
+X:0.0702
+Y:0.0852
+VX:0.3473
+VY:0.2568
+on data2 =
+X:0.0694
+Y:0.0695
+VX:0.2564
+VY:0.2299

@@ -8,7 +8,7 @@ using std::vector;
 Tools::Tools() {}
 
 Tools::~Tools() {}
-//A copy from EKF project !, I don't know if it will work or not !
+//A copy from EKF project !
 VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
                               const vector<VectorXd> &ground_truth) {
   /**

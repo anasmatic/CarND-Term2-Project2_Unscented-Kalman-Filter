@@ -67,7 +67,7 @@ public:
   int n_aug_;
  
   //segma width
-  int n_sw_;
+  int n_sig_;
 
   ///* Sigma point spreading parameter
   double lambda_;
@@ -79,8 +79,9 @@ public:
    */
   MatrixXd R_radar_;
   MatrixXd R_lidar_;
-  double NIS_radar_;
-  double NIS_laser_;
+
+  double NIS_radar;
+  double NIS_laser;
   UKF();
 
   /**
@@ -100,6 +101,8 @@ public:
    * @param delta_t Time between k and k+1 in s
    */
   void Prediction(double delta_t);
+  void AugmentSegmaPoints(MatrixXd & Xsig_aug);
+  void PredictSigmaPoints(MatrixXd Xsig_aug, double delta_t);
 
   /**
    * Updates the state and the state covariance matrix using a laser measurement
@@ -112,6 +115,10 @@ public:
    * @param meas_package The measurement at k+1
    */
   void UpdateRadar(MeasurementPackage meas_package);
+
+  void UKFUpdate(const MatrixXd & Z_sig, const VectorXd & z_pred, const MatrixXd & S, const VectorXd & z);
+
+  
 
 };
 

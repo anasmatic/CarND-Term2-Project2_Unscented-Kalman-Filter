@@ -4,9 +4,10 @@
 #include <math.h>
 #include "ukf.h"
 #include "tools.h"
+#include <vector>
+#include <fstream>
+#include <iterator>
 
-using namespace std;
- 
 // for convenience
 using json = nlohmann::json;
 
@@ -32,13 +33,15 @@ int main()
 
   // Create a Kalman Filter instance
   UKF ukf;
-
   // used to compute the RMSE later
   Tools tools;
   vector<VectorXd> estimations;
   vector<VectorXd> ground_truth;
-
-  h.onMessage([&ukf,&tools,&estimations,&ground_truth](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+  //[Anas: NIS vectors and save file trigger]				  
+  vector<double> NIS_rader_arr;
+  vector<double> NIS_laser_arr;
+  bool fileSaved = false;
+  h.onMessage([&ukf,&tools,&estimations,&ground_truth,&NIS_laser_arr,&NIS_rader_arr,&fileSaved](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -139,12 +142,50 @@ int main()
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-	  
+		//[Anas: NIS vectors update]				  
+		  NIS_rader_arr.push_back(ukf.NIS_radar);
+		  NIS_laser_arr.push_back(ukf.NIS_laser);
         }
       } else {
         
         std::string msg = "42[\"manual\",{}]";
         ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
+
+		//[Anas: NIS vectors saved to csv file for plotting] 
+		if (NIS_laser_arr.size() + NIS_rader_arr.size() == 998 && !fileSaved) {
+			fileSaved = true;
+			std::ofstream output_file("./NIS_laser.csv");
+			int vsize = NIS_laser_arr.size();
+			int _5p9 = 0; int _p103 = 0;
+			for (int n = 0; n<vsize; n++)
+			{
+				if (NIS_laser_arr[n] > 5.991) _5p9+=1;
+				if (NIS_laser_arr[n] < 0.103) _p103+=1;
+				output_file << NIS_laser_arr[n] << endl;
+			}
+			//[Anas: NIS percentage printed]
+			double _5p9_perc = _5p9 *1.0 / vsize*1.0;
+			double _p103_perc = _p103  *1.0 / vsize*1.0;
+			//cout << "NIS_laser : _5p9:" << _5p9_perc << ", " << "_p103:" << _p103_perc << endl;
+			output_file.close();
+			
+			std::ofstream output_file2("./NIS_rader.csv");
+			vsize = NIS_rader_arr.size();
+			int _7p8 = 0; int _p352 = 0;
+			for (int n = 0; n<vsize; n++)
+			{
+				if (NIS_laser_arr[n] > 7.8) _7p8 = _7p8+1;
+				if (NIS_laser_arr[n] < 0.352) _p352 = _p352+1;
+				output_file2 << NIS_rader_arr[n] << endl;
+			}
+			//[Anas: NIS percentage printed]
+			double _7p8_perc = _7p8 *1.0 / vsize*1.0;
+			double _p352_perc = _p352  *1.0 / vsize*1.0;
+			//cout << "NIS_rader : _7p8:" << _7p8_perc << ", " << "_p352:" << _p352_perc << endl;
+			output_file2.close();
+			
+		}
+
       }
     }
 
@@ -185,6 +226,7 @@ int main()
     return -1;
   }
   h.run();
+
 }
 
 
