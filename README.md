@@ -43,10 +43,13 @@ I was using Windows 10 and VisualStudio17
    * then I tuned "yawd" noise, started from .75 and going up, I found 1.5 is the best
    * I made sure those values are then best by plotting NIS values, and print out how much values are above 7.8 and less than .352 for Radar , and above 5.9 & less than 0.103 for Lidar
 
-plot for a=.75 & yawdd=1.5
+plot for a=.75 & yawdd=1.5 :
+
 Lidar
 `NIS_laser : _5p9:0.0240481, _p103:0.0440882`
 ![Lidar](https://github.com/anasmatic/CarND-Term2-Project2_Unscented-Kalman-Filter/blob/master/PlotNIS/laser_a0.75yawd1.5.png)
+
+------
 
 Radar
 `NIS_rader : _7p8:0.012024, _p352:0.156313`
