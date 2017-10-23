@@ -41,7 +41,8 @@ I was using Windows 10 and VisualStudio17
 6. tune noise :
    * I started tuning "a" noise from 30 trying less values, I was convinced that we can't get better results than .75
    * then I tuned "yawd" noise, started from .75 and going up, I found 1.5 is the best
-   * I made sure those values are then best by plotting NIS values, and print out how much values are above 7.8 and less than .352 for Radar , and above 5.9 & less than 0.103 for Lidar
+   * I made sure those values are then best by plotting NIS values, and print out how much values are above 7.8(red line) and less than .352 (green line) for Radar ,
+and above 5.9 (red line) & less than 0.103 (green line) for Lidar
 
 
 plot for a=.75 & yawdd=1.5 :
