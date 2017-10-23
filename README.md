@@ -45,12 +45,12 @@ I was using Windows 10 and VisualStudio17
 
 plot for a=.75 & yawdd=1.5
 Lidar
-![Lidar] (https://github.com/anasmatic/CarND-Term2-Project2_Unscented-Kalman-Filter/blob/master/PlotNIS/laser_a0.75yawd1.5.png)
-Radar
-![Radar] (https://github.com/anasmatic/CarND-Term2-Project2_Unscented-Kalman-Filter/blob/master/PlotNIS/radar_a0.75yawd1.5.png)
-
-`a=.75 , ywd=1.5` :
-
 `NIS_laser : _5p9:0.0240481, _p103:0.0440882`
+![Lidar](https://github.com/anasmatic/CarND-Term2-Project2_Unscented-Kalman-Filter/blob/master/PlotNIS/laser_a0.75yawd1.5.png)
 
+Radar
 `NIS_rader : _7p8:0.012024, _p352:0.156313`
+![Radar](https://github.com/anasmatic/CarND-Term2-Project2_Unscented-Kalman-Filter/blob/master/PlotNIS/radar_a0.75yawd1.5.png)
+
+
+
